@@ -1,0 +1,53 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="container">
+  <div class="welcome-section">
+    <img src="img/logo.png" alt="Logo" class="logo" />
+    <h1>Bienvenue 👋</h1>
+
+    <!-- Email -->
+    <label for="email">Email</label>
+    <div class="phone-input-wrapper">
+      <input
+        type="email"
+        id="email"
+        class="phone-input"
+        placeholder="email"
+        maxlength="50"
+        formControlName="email"
+      />
+    </div>
+    <div *ngIf="form.get('email')?.invalid && form.get('email')?.touched" class="error">
+      Adresse e-mail obligatoire
+    </div>
+
+    <!-- Mot de passe -->
+    <label for="pwd">Mot de passe</label>
+    <input
+      type="password"
+      id="pwd"
+      class="access-input"
+      placeholder="mot de passe"
+      formControlName="password"
+    />
+    <div *ngIf="form.get('password')?.invalid && form.get('password')?.touched" class="error">
+      Mot de passe obligatoire
+    </div>
+
+    <a routerLink="/reset" class="forgot-code">Mot de passe oublié?</a>
+
+    <button class="login-btn" type="submit" [disabled]="form.invalid">Se Connecter</button>
+
+    <!-- Message de succès -->
+    <div *ngIf="successMessage" class="alert success-alert">
+      {{ successMessage }}
+    </div>
+
+    <!-- Message d'erreur -->
+    <div *ngIf="errorMessage" class="alert error-alert">
+      {{ errorMessage }}
+    </div>
+  </div>
+
+  <div class="image-container">
+    <img src="img/login.png" alt="Login Image" class="image-login" />
+  </div>
+</form>

@@ -1,0 +1,47 @@
+<!-- reset-password.component.html -->
+<div class="container">
+  <div class="welcome-section">
+      <a class="back-arrow" (click)="goBack()">
+      &#8592;
+    </a>
+    <img src="img/logo.png" alt="Logo" class="logo" />
+
+    <h1 class="forgot-title">Créer un nouveau code d'accès</h1>
+
+    <div class="center-wrapper">
+      <p>
+        Veuillez saisir et confirmer votre nouveau code d’accès.<br />
+        Vous devrez vous reconnecter après la réinitialisation.
+      </p>
+    </div>
+
+    <!-- Entrer le code -->
+    <label for="code">Code d'accès</label>
+    <input
+      type="password"
+      class="phone-wrapper"
+      id="code"
+      [(ngModel)]="code"
+      name="code"
+      placeholder="Entrez votre code ici"
+      maxlength="8"
+    />
+
+    <label for="confirmCode">Confirmer le code d'accès</label>
+    <input
+      type="password"
+      class="phone-input-wrapper"
+      id="confirmCode"
+      [(ngModel)]="confirmCode"
+      name="confirmCode"
+      placeholder="Entrez votre code ici"
+      maxlength="8"
+    />
+
+    <button class="login-btn" (click)="resetCode()">Réinitialiser le code d'accès</button>
+  </div>
+
+  <div class="image-container">
+    <img src="img/login.png" alt="Login Image" class="image-login" />
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="welcome-section">
+      <a class="back-arrow" (click)="goBack()">
+      &#8592;
+    </a>
+    <img src="img/logo.png" alt="Logo" class="logo" />
+    <h1 class="forgot-title">Vérification du compte</h1>
+
+    <label for="code">Entrer le code reçu</label>
+    <input
+      type="text"
+      [(ngModel)]="code"
+      class="phone-input-wrapper"
+      id="code"
+      placeholder="Entrez le code"
+      maxlength="8"
+    />
+
+    <button class="login-btn" (click)="verifyCode()">Vérifier</button>
+  </div>
+
+  <div class="image-container">
+    <img src="img/login.png" alt="Login Image" class="image-login" />
+  </div>
+</div>

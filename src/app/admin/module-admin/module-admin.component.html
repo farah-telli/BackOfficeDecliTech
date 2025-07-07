@@ -1,0 +1,67 @@
+<div class="main-container">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="logo-container">
+      <img src="img/logoo.png" alt="Logo DecliTech" class="logo-img" />
+    </div>    
+    <nav class="menu">
+      <a routerLink="/accueil">🏠 Accueil</a>
+      <a routerLink="/modules" class="active">📦 Modules</a>
+      <a routerLink="/instructeurs">👨‍🏫 Instructeurs</a>
+      <a routerLink="/avis">💬 Avis</a>
+      <a routerLink="/logout" (click)="logout()" class="fas fa-sign-out-alt">🔒 Déconnecter</a>
+    </nav>
+  </aside>
+
+  <!-- Contenu principal -->
+  <section class="content">
+    <div class="header">
+      <h2 class="txt">Modules</h2>
+      <button class="add-btn">➕ Affecter Module au planning</button>
+    </div>
+
+    <!-- Tableau -->
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th><input type="checkbox" /></th>
+            <th>Module</th>
+            <th>Cobuild Space</th>
+            <th>Nbre de...</th>
+            <th>Jour</th>
+            <th>Activation</th>
+            <th>Annulation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let module of modules" [class.selected]="module.checked">
+            <td><input type="checkbox" [(ngModel)]="module.checked" /></td>
+            <td>{{ module.nom }}</td>
+            <td>{{ module.space }}</td>
+            <td>{{ module.nb }}</td>
+            <td>{{ module.jour }}</td>
+
+            <!-- ✅ Switch d'activation -->
+            <td>
+              <label class="switch">
+                <input type="checkbox" [(ngModel)]="module.actif" />
+                <span class="slider"></span>
+              </label>
+              <span class="label">{{ module.actif ? 'Activé' : 'Désactivé' }}</span>
+            </td>
+
+            <!-- ✅ Switch d'annulation en rouge -->
+            <td>
+              <label class="switch cancel-switch">
+                <input type="checkbox" [(ngModel)]="module.annule" />
+                <span class="slider red-slider"></span>
+              </label>
+              <span class="label">{{ module.annule ? 'Annulé' : 'Annuler' }}</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>

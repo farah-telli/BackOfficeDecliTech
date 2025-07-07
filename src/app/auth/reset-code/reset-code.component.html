@@ -1,0 +1,66 @@
+<div class="container">
+  <div class="welcome-section">
+    <!-- Flèche retour -->
+    <a class="back-arrow" (click)="goBack()">&#8592;</a>
+
+    <!-- Logo -->
+    <img src="img/logo.png" alt="Logo" class="logo" />
+
+    <h1 class="forgot-title">Code d’accès oublié</h1>
+
+    <div class="center-wrapper">
+      <p>
+        Pas de souci ! Entrez votre numéro de téléphone ci-dessous et nous vous
+        enverrons un code pour réinitialiser votre code d’accès.
+      </p>
+    </div>
+
+    <!-- Téléphone -->
+    <label for="phone">Numéro de Téléphone</label>
+    <div class="phone-input-wrapper">
+      <span class="country-code">
+        <img
+          src="https://flagcdn.com/w20/tn.png"
+          alt="Drapeau Tunisie"
+          title="Tunisie"
+        />
+        +216
+      </span>
+      <input
+        type="text"
+        id="phone"
+        class="phone-input custom-phone-input"
+        placeholder="71234567"
+        maxlength="8"
+        [(ngModel)]="phone"
+        required
+        (ngModelChange)="clearError()"
+      />
+    </div>
+
+    <!-- Message erreur validation -->
+    <div *ngIf="phoneError" class="error-message">
+      Veuillez entrer un numéro de téléphone valide (8 chiffres).
+    </div>
+
+    <!-- Limite SMS -->
+    <a href="#" class="forgot-code">⚠️ Limite d'un SMS par jour pour la réutilisation</a>
+
+    <!-- Bouton envoyer -->
+    <button class="login-btn" (click)="sendCode()">Envoyer le code</button>
+
+    <!-- ✅ Message succès -->
+    <div *ngIf="successMessage" class="alert success-alert">
+      {{ successMessage }}
+    </div>
+
+    <!-- ❌ Message erreur -->
+    <div *ngIf="errorMessage" class="alert error-alert">
+      {{ errorMessage }}
+    </div>
+  </div>
+
+  <div class="image-container">
+    <img src="img/login.png" alt="Login Image" class="image-login" />
+  </div>
+</div>
