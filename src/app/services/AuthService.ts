@@ -23,6 +23,8 @@ export class AuthService {
       );
   }
 
+
+  
   private storeToken(token: string) {
     localStorage.setItem('token', token);
   }
@@ -64,5 +66,19 @@ resetCode(data: { phoneNumber: string; code: string; confirmCode: string }): Obs
   return this.http.post(`${this.baseUrl}/reset-code`, data, { responseType: 'text' });
 }
 
+ activerModule(id: number): Observable<any> {
+    return this.http.put(`${this.baseUrl}/activer/${id}`, {});
+  }
+
+  desactiverModule(id: number): Observable<any> {
+    return this.http.put(`${this.baseUrl}/desactiver/${id}`, {});
+  }
+
+  annulerSeance(id: number): Observable<any> {
+    return this.http.put(`${this.baseUrl}/annuler/${id}`, {});
+  }
+  getAllModules() {
+  return this.http.get<any[]>(`${this.baseUrl}`);
+}
 
 }

@@ -1,0 +1,63 @@
+<div class="dialog-container">
+  <div class="steps">
+    <div [class.active]="currentStep === 1">
+      <div class="step-title">Module</div>
+      <div class="step-subtitle">{{ selectedModuleName }}</div>
+    </div>
+    <div [class.active]="currentStep === 2">
+      <div class="step-title">Cobuild Space</div>
+      <div class="step-subtitle">{{ selectedSpaceName }}</div>
+    </div>
+    <div [class.active]="currentStep === 3">
+      <div class="step-title">Jour</div>
+      <div class="step-subtitle">{{ selectedDayLabel }}</div>
+    </div>
+  </div>
+
+  <div class="content">
+    <!-- Étape 1 -->
+    <div *ngIf="currentStep === 1" class="chips-container">
+      <span
+        *ngFor="let mod of modules"
+        (click)="selectModule(mod.id)"
+        [class.selected]="selectedModuleId === mod.id"
+        class="chip"
+      >
+        {{ mod.name }}
+      </span>
+    </div>
+
+    <!-- Étape 2 -->
+    <div *ngIf="currentStep === 2" class="chips-container">
+      <span
+        *ngFor="let s of spaces"
+        (click)="selectSpace(s.id)"
+        [class.selected]="selectedSpaceId === s.id"
+        class="chip"
+      >
+        {{ s.name }}
+      </span>
+    </div>
+
+    <!-- Étape 3 -->
+    <div *ngIf="currentStep === 3" class="chips-container">
+      <span
+        *ngFor="let d of days"
+        (click)="selectDay(d)"
+        [class.selected]="selectedDay === d"
+        class="chip"
+      >
+        {{ d }}
+      </span>
+    </div>
+
+    <div class="actions">
+      <button mat-button (click)="previous()" [disabled]="currentStep === 1">
+        <span>←</span><span>Précédent</span>
+      </button>
+      <button mat-button color="primary" (click)="next()">
+        <span>{{ currentStep === 3 ? 'Affecter' : 'Suivant' }}</span><span>→</span>
+      </button>
+    </div>
+  </div>
+</div>

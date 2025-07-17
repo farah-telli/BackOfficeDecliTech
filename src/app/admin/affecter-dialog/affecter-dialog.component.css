@@ -1,0 +1,145 @@
+.dialog-container {
+  height: 535px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 32px;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+::ng-deep .custom-dialog .mat-dialog-container {
+  height: 535px !important;
+  border-radius: 47px;
+  padding: 0 !important;
+  overflow: hidden !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Étapes */
+.steps {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 80px;
+}
+
+.steps div {
+  flex: 1;
+  text-align: center;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background-color: #f1f4f8;
+  color: #a3a8b1;
+  font-weight: 600;
+  font-size: 13px;
+  margin: 0 4px;
+}
+
+.steps .active {
+  background-color: #00aeb3;
+  color: white;
+}
+
+/* Contenu */
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+.content h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1c1c1c;
+  margin: 0;
+}
+
+.content p {
+  font-size: 15px;
+  color: #4a4a4a;
+  margin-bottom: 6px;
+}
+
+.content label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  font-size: 15px;
+  color: #1c1c1c;
+}
+
+/* Chips */
+.chips-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  row-gap: 6px;
+  justify-content: flex-start;
+  margin-bottom: 12px;
+}
+
+.chip {
+  padding: 6px 14px;
+  font-size: 13px;
+  border-radius: 18px;
+  background-color: #f0f0f0;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+  line-height: 1;
+}
+
+.chip.selected {
+  background-color: #00aeb3;
+  color: white;
+  font-weight: bold;
+}
+
+/* Boutons d’action */
+.actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+button[mat-button] {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: none;
+  background-color: #f0f0f0;
+  color: #333;
+  border: none;
+  transition: background-color 0.2s ease;
+  line-height: 1;
+  min-width: auto;
+  box-shadow: none;
+}
+
+button[mat-button]:hover {
+  background-color: #e0e0e0;
+}
+
+button[mat-button].mat-primary {
+  background-color: #00aeb3;
+  color: white;
+}
+
+button[mat-button]:disabled {
+  background-color: #eee !important;
+  color: #aaa !important;
+  cursor: not-allowed;
+}
+
+button[mat-button] span {
+  margin: 0;
+  padding: 0;
+}

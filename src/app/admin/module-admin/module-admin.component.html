@@ -1,23 +1,19 @@
 <div class="main-container">
   <!-- Sidebar -->
-  <aside class="sidebar">
-    <div class="logo-container">
-      <img src="img/logoo.png" alt="Logo DecliTech" class="logo-img" />
-    </div>    
-    <nav class="menu">
-      <a routerLink="/accueil">🏠 Accueil</a>
-      <a routerLink="/modules" class="active">📦 Modules</a>
-      <a routerLink="/instructeurs">👨‍🏫 Instructeurs</a>
-      <a routerLink="/avis">💬 Avis</a>
-      <a routerLink="/logout" (click)="logout()" class="fas fa-sign-out-alt">🔒 Déconnecter</a>
-    </nav>
-  </aside>
+  <app-sidebar (logoutEvent)="logout()"></app-sidebar>
 
   <!-- Contenu principal -->
   <section class="content">
-    <div class="header">
-      <h2 class="txt">Modules</h2>
-      <button class="add-btn">➕ Affecter Module au planning</button>
+    <h2 class="text-xl font-semibold mb-4 title-blue">Modules</h2>
+
+    <!-- Barre de recherche -->
+    <div class="search-bar">
+      <input
+        type="text"
+        class="search-input"
+        placeholder="🔍 Rechercher une session..."
+        [(ngModel)]="searchTerm"
+      />
     </div>
 
     <!-- Tableau -->
@@ -25,39 +21,56 @@
       <table>
         <thead>
           <tr>
-            <th><input type="checkbox" /></th>
+            <th><input type="checkbox" (change)="toggleAllSelection()" /></th>
             <th>Module</th>
-            <th>Cobuild Space</th>
-            <th>Nbre de...</th>
+            <th>Instructeur(s)</th>
+            <th>CoBuild Space</th>
+            <th>Tranche</th>
             <th>Jour</th>
+            <th>Heure</th>
             <th>Activation</th>
             <th>Annulation</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let module of modules" [class.selected]="module.checked">
-            <td><input type="checkbox" [(ngModel)]="module.checked" /></td>
-            <td>{{ module.nom }}</td>
-            <td>{{ module.space }}</td>
-            <td>{{ module.nb }}</td>
-            <td>{{ module.jour }}</td>
-
-            <!-- ✅ Switch d'activation -->
+          <tr *ngFor="let session of modules">
+            <td><input type="checkbox" [(ngModel)]="session.checked" /></td>
+            <td>{{ session.moduleTitle }}</td>
+            <td>{{ getInstructorsList(session.instructeurs) }}</td>
+            <td>{{ session.coBuildSpaceName }}</td>
             <td>
-              <label class="switch">
-                <input type="checkbox" [(ngModel)]="module.actif" />
+              <span class="badge" [ngClass]="{
+                'tranche-1316': session.tranche === '13-16',
+                'tranche-0812': session.tranche === '8-12'
+              }">{{ session.tranche }}</span>
+            </td>
+            <td>{{ session.jour }}</td>
+            <td>{{ session.heure }}</td>
+
+            <!-- Activation -->
+            <td class="centered-cell">
+              <label class="custom-switch">
+                <input
+                  type="checkbox"
+                  [(ngModel)]="session.actif"
+                  (change)="session.actif ? onActiver(session) : onDesactiver(session)"
+                />
                 <span class="slider"></span>
               </label>
-              <span class="label">{{ module.actif ? 'Activé' : 'Désactivé' }}</span>
+              <div class="label">{{ session.actif ? 'Activé' : 'Désactivé' }}</div>
             </td>
 
-            <!-- ✅ Switch d'annulation en rouge -->
-            <td>
-              <label class="switch cancel-switch">
-                <input type="checkbox" [(ngModel)]="module.annule" />
-                <span class="slider red-slider"></span>
+            <!-- Annulation -->
+            <td class="centered-cell">
+              <label class="custom-switch cancel">
+                <input
+                  type="checkbox"
+                  [(ngModel)]="session.annule"
+                  (change)="onAnnulerSeance(session)"
+                />
+                <span class="slider red"></span>
               </label>
-              <span class="label">{{ module.annule ? 'Annulé' : 'Annuler' }}</span>
+              <div class="label">{{ session.annule ? 'Annulé' : 'Annuler' }}</div>
             </td>
           </tr>
         </tbody>

@@ -1,116 +1,87 @@
+import { ModuleSessionService } from './../../services/ModuleSessionService';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/AuthService';
+import { SidebarComponent } from "../../sidebar/sidebar.component";
+
+export interface FlatModuleSession {
+  id: number;
+  jour: string;
+  heure: string;
+  coBuildSpaceName: string;
+  moduleTitle: string;
+  instructeurs: string[];
+  tranche: string;
+  actif?: boolean; // Ajout de l'attribut actif
+  annule?: boolean; // Ajout de l'attribut annule
+  checked?: boolean;
+}
 
 @Component({
   selector: 'app-module-admin',
-  imports: [CommonModule, FormsModule, RouterModule],
+  standalone: true,
+  imports: [CommonModule, FormsModule, RouterModule, SidebarComponent],
   templateUrl: './module-admin.component.html',
-  styleUrl: './module-admin.component.css'
+  styleUrls: ['./module-admin.component.css']
 })
 export class ModuleAdminComponent {
+  searchTerm: string = '';
+  modules: FlatModuleSession[] = [];
 
-      constructor(private router: Router, private authService: AuthService) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private moduleSessionService: ModuleSessionService
+  ) {}
 
- modules = [
-    {
-      nom: 'Développement des jeux vidéos',
-      space: 'Ariana S2',
-      nb: 2,
-      jour: 'Samedi',
-      actif: true,
-      annule: true,
-      checked: false
-    },
-    {
-      nom: 'Code Combat',
-      space: 'Ariana S1',
-      nb: 11,
-      jour: 'Dimanche',
-      actif: true,
-      annule: false,
-      checked: false
-    },
-    {
-      nom: 'Conception Robotique',
-      space: 'Ariana S3',
-      nb: 20,
-      jour: 'Mercredi',
-      actif: true,
-      annule: false,
-      checked: false
-    },
-    {
-      nom: 'Psychologie Positive',
-      space: 'Lac S211',
-      nb: 5,
-      jour: '14/06/2025',
-      actif: true,
-      annule: false,
-      checked: false
-    },
-    {
-      nom: 'Développement des applications',
-      space: 'Lac S214',
-      nb: 14,
-      jour: '14/06/2025',
-      actif: true,
-      annule: false,
-      checked: true
-    },
-    {
-      nom: 'Architecture et ingénierie 3D',
-      space: 'Centre Urbain',
-      nb: 3,
-      jour: '14/06/2025',
-      actif: true,
-      annule: true,
-      checked: true
-    },
-     {
-      nom: 'Robotique intelligente	',
-      space: 'Ariana S2',
-      nb: 2,
-      jour: 'Samedi',
-      actif: true,
-      annule: true,
-      checked: false
-    },
-    {
-      nom: 'Code Combat',
-      space: 'Ariana S1',
-      nb: 11,
-      jour: 'Dimanche',
-      actif: true,
-      annule: false,
-      checked: false
-    },
-    {
-      nom: 'Conception Robotique',
-      space: 'Ariana S3',
-      nb: 20,
-      jour: 'Mercredi',
-      actif: true,
-      annule: false,
-      checked: false
-    },
-    {
-      nom: 'UX/UI Design',
-      space: 'Lac S211',
-      nb: 5,
-      jour: '14/06/2025',
-      actif: true,
-      annule: false,
-      checked: false
-    }
-  ];
+  ngOnInit() {
+    this.loadModules();
+  }
 
-    logout() {
+  loadModules() {
+    this.moduleSessionService.getAllSessions().subscribe(
+      (sessions: any[]) => {
+        this.modules = sessions.map((s) => ({ ...s, checked: false, actif: true, annule: false })); // Initialisation des états
+      },
+      (err) => {
+        console.error('Erreur chargement sessions', err);
+        this.modules = [];
+      }
+    );
+  }
+
+  logout() {
     this.authService.logout();
-      alert('Déconnexion réussie');
+    alert('Déconnexion réussie');
+    this.router.navigate(['/login']);
+  }
 
+  toggleAllSelection() {
+    const allChecked = this.modules.every((m) => m.checked);
+    this.modules.forEach((m) => (m.checked = !allChecked));
+  }
+
+  getInstructorsList(instrs: string[]): string {
+    return instrs.length > 0 ? instrs.join(', ') : 'Aucun';
+  }
+
+  onActiver(session: FlatModuleSession) {
+    session.actif = true; // Mise à jour de l'état
+    console.log('Activé', session);
+    // Ici, tu peux appeler un service pour mettre à jour l'état sur le serveur si nécessaire
+  }
+
+  onDesactiver(session: FlatModuleSession) {
+    session.actif = false; // Mise à jour de l'état
+    console.log('Désactivé', session);
+    // Ici, tu peux appeler un service pour mettre à jour l'état sur le serveur si nécessaire
+  }
+
+  onAnnulerSeance(session: FlatModuleSession) {
+    session.annule = !session.annule; // Inverser l'état d'annulation
+    console.log(session.annule ? 'Annulé' : 'Rétabli', session);
+    // Ici, tu peux appeler un service pour mettre à jour l'état sur le serveur si nécessaire
   }
 }
-

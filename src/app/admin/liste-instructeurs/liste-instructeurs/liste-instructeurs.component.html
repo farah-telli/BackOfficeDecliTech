@@ -1,53 +1,89 @@
+<div class="main-container">
+  <aside class="sidebar">
+    <div class="logo-container">
+      <img src="img/logoo.png" alt="Logo DecliTech" class="logo-img" />
+    </div>
+    <nav class="menu">
+      <a routerLink="/accueil">🏠 Accueil</a>
+      <a routerLink="/admin">📦 Modules</a>
+      <a routerLink="/reservations">📅 Réservations</a>
+      <a routerLink="/list" class="active">👨‍🏫 Instructeurs</a>
+      <a routerLink="/avis">💬 Avis</a>
+      <a (click)="logout()">🔒 Déconnecter</a>
+    </nav>
+  </aside>
 
-<div class="p-6">
-  <h2 class="text-xl font-semibold mb-4">Instructeurs</h2>
+  <section class="content">
+    <div class="p-6">
+      <div class="header-bar">
+        <h2 class="page-title">Liste des Instructeurs</h2>
+        <input
+          type="text"
+          class="search-input"
+          placeholder="🔍 Recherche"
+          [(ngModel)]="searchText"
+        />
+      </div>
 
-  <!-- Champ de recherche -->
-  <mat-form-field appearance="outline" class="w-full mb-4">
-    <mat-label>Recherche</mat-label>
-    <input matInput placeholder="Rechercher un instructeur..." [(ngModel)]="searchText" />
-  </mat-form-field>
+      <table mat-table [dataSource]="filteredInstructors()" class="instructor-table mat-elevation-z8">
+        <!-- Sélection -->
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>
+            <input type="checkbox" (change)="toggleAll($event)" />
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <input type="checkbox" [(ngModel)]="row.selected" />
+          </td>
+        </ng-container>
 
-  <!-- Tableau -->
-  <table mat-table [dataSource]="filteredInstructors" class="mat-elevation-z8 w-full">
+        <!-- Nom -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Instructeurs </th>
+          <td mat-cell *matCellDef="let row"> {{ row.name }} </td>
+        </ng-container>
 
-    <!-- Colonne Sélection -->
-    <ng-container matColumnDef="select">
-      <th mat-header-cell *matHeaderCellDef>
-        <mat-checkbox (change)="toggleAll($event)"></mat-checkbox>
-      </th>
-      <td mat-cell *matCellDef="let row">
-        <mat-checkbox [(ngModel)]="row.selected"></mat-checkbox>
-      </td>
-    </ng-container>
+        <!-- Modules -->
+        <ng-container matColumnDef="modules">
+          <th mat-header-cell *matHeaderCellDef> Module </th>
+          <td mat-cell *matCellDef="let row">
+            <span
+              *ngFor="let module of row.modules"
+              class="chip"
+              [ngStyle]="{
+                'background-color': getStyleForModule(module.name).bg,
+                'color': getStyleForModule(module.name).text
+              }"
+            >
+              {{ module.name }}
+            </span>
+          </td>
+        </ng-container>
 
-    <!-- Colonne Nom -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Nom </th>
-      <td mat-cell *matCellDef="let row"> {{ row.name }} </td>
-    </ng-container>
+        <!-- Action -->
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef> Action </th>
+          <td mat-cell *matCellDef="let row">
+            <button class="affect-button" (click)="affecter(row)">Affecter</button>
+          </td>
+        </ng-container>
 
-    <!-- Colonne Modules (sans mat-chip) -->
-    <ng-container matColumnDef="modules">
-      <th mat-header-cell *matHeaderCellDef> Modules </th>
-      <td mat-cell *matCellDef="let row">
-        <span *ngFor="let module of row.modules"
-              [ngStyle]="{ 
-                'background-color': module.color,
-                color: 'white',
-                'border-radius': '8px',
-                padding: '2px 6px',
-                margin: '2px',
-                display: 'inline-block',
-                'font-size': '12px'
-              }">
-          {{ module.name }}
-        </span>
-      </td>
-    </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: displayedColumns"
+          [ngClass]="{ 'selected-row': row.selected }"
+        ></tr>
+      </table>
 
-    <!-- Lignes -->
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+      <div class="pagination">
+        <button
+          *ngFor="let page of [].constructor(totalPages); let i = index"
+          (click)="changePage(i + 1)"
+          [class.active]="currentPage === i + 1"
+        >
+          {{ i + 1 }}
+        </button>
+      </div>
+    </div>
+  </section>
 </div>
