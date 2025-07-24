@@ -1,0 +1,176 @@
+/* Container */
+.main-container {
+  display: flex;
+  height: 100vh;
+  font-family: "Segoe UI", sans-serif;
+  background: #f9fbfd;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 200px;
+  background-color: #0097b2;
+  color: white;
+  padding: 20px;
+}
+.logo-img {
+  width: 100%;
+  margin-bottom: 30px;
+}
+.menu a {
+  display: block;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+}
+.menu a.active {
+  background-color: white;
+  color: #0097b2;
+}
+
+/* Main Content */
+.content {
+  flex: 1;
+  padding: 24px;
+}
+.section-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+.title-blue {
+  color: #0097b2;
+}
+
+/* Search Bar */
+.search-bar {
+  text-align: right;
+  margin-bottom: 10px;
+}
+.search-input {
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 2px solid #0097b2;
+  width: 200px;
+  outline: none;
+  font-size: 14px;
+}
+.search-input:focus {
+  border-color: #007a8a;
+}
+
+/* Table */
+.table-wrapper {
+  margin-top: 20px;
+  overflow-x: auto;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+th, td {
+  padding: 12px 16px;
+  text-align: center;
+  border-bottom: 1px solid #f0f0f0;
+}
+tr.selected {
+  background-color: #e0f7fa;
+}
+
+/* Badge (Age Group) */
+.badge {
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+  display: inline-block;
+  min-width: 50px;
+  text-align: center;
+}
+.tranche-1316 {
+  background-color: #d714c3;
+}
+.tranche-0812 {
+  background-color: #1492d7;
+}
+
+/* Toggle Switch (52x32) */
+.custom-switch {
+  position: relative;
+  display: inline-block;
+  width: 52px;
+  height: 32px;
+}
+.custom-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.custom-switch .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 32px;
+}
+.custom-switch .slider:before {
+  position: absolute;
+  content: "";
+  height: 24px;
+  width: 24px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+.custom-switch input:checked + .slider {
+  background-color: #16c098;
+}
+.custom-switch input:checked + .slider:before {
+  transform: translateX(20px);
+}
+
+/* Red Switch for Cancellation */
+.custom-switch.cancel input:checked + .slider {
+  background-color: #df0404;
+}
+
+/* Labels */
+.label {
+  margin-left: 8px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* Pagination */
+.pagination {
+  text-align: center;
+  margin-top: 20px;
+}
+.pagination button {
+  background-color: #fff;
+  border: 1px solid #0097b2;
+  color: #0097b2;
+  padding: 5px 12px;
+  margin: 0 4px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.pagination button.active,
+.pagination button:hover {
+  background-color: #0097b2;
+  color: #fff;
+}

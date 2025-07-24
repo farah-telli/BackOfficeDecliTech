@@ -1,0 +1,67 @@
+<div class="main-container">
+  <!-- Sidebar -->
+    <app-sidebar></app-sidebar>
+
+  <!-- Main Content -->
+  <section class="content">
+    <h2 class="section-title title-blue">CoBuild Spaces</h2>
+
+    <!-- Search -->
+    <div class="search-bar">
+      <input type="text" class="search-input" placeholder="🔍 Rechercher un espace..." />
+    </div>
+
+    <!-- Table -->
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th><input type="checkbox" /></th>
+            <th>Nom</th>
+            <th>Adresse</th>
+            <th>Modules</th>
+            <th>Statut</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Example Row -->
+          <tr>
+            <td><input type="checkbox" /></td>
+            <td>CoBuild Alpha</td>
+            <td>123 Rue Technopark</td>
+            <td>Programmation Web, IA</td>
+            <td class="centered-cell">
+              <label class="custom-switch">
+                <input type="checkbox" checked />
+                <span class="slider"></span>
+              </label>
+              <div class="label">Activé</div>
+            </td>
+          </tr>
+
+          <!-- Another Example Row -->
+          <tr>
+            <td><input type="checkbox" /></td>
+            <td>CoBuild Beta</td>
+            <td>45 Avenue Startup</td>
+            <td>Robotique</td>
+            <td class="centered-cell">
+              <label class="custom-switch">
+                <input type="checkbox" />
+                <span class="slider"></span>
+              </label>
+              <div class="label">Désactivé</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination">
+      <button class="active">1</button>
+      <button>2</button>
+      <button>3</button>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,128 @@
+.main-container {
+  display: flex;
+  height: 100vh;
+  font-family: "Segoe UI", sans-serif;
+  background: #f9fbfd;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 200px;
+  background-color: #0097b2;
+  color: white;
+  padding: 20px;
+}
+.logo-img {
+  width: 100%;
+  margin-bottom: 30px;
+}
+.menu a {
+  display: block;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+}
+.menu a.active {
+  background-color: white;
+  color: #0097b2;
+}
+
+/* Content */
+.content {
+  flex-grow: 1;
+  background: #f9f9f9;
+  padding: 30px;
+}
+.header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.page-title {
+  color: #0097b2;
+  font-size: 24px;
+}
+.search-input {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  width: 230px;
+  transition: border-color 0.3s ease;
+}
+.search-input:focus {
+  border-color: #0097b2;
+  outline: none;
+}
+
+/* Feedback Table */
+.feedback-table {
+  width: 100%;
+  background-color: white;
+  border-collapse: collapse;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+.feedback-table th,
+.feedback-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+  vertical-align: middle;
+  font-size: 14px;
+  color: #333;
+}
+.feedback-table th {
+  background-color: #f1f9fa;
+  color: #0097b2;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.feedback-table tbody tr:hover {
+  background-color: #e6f0ff;
+  cursor: pointer;
+}
+
+/* Stars for rating */
+.stars {
+  white-space: nowrap;
+}
+.star {
+  font-size: 18px;
+  color: #ccc;
+  margin-right: 2px;
+  user-select: none;
+}
+.star.filled {
+  color: #FFD700; /* Gold */
+}
+
+/* Pagination */
+.pagination {
+  margin-top: 20px;
+  text-align: center;
+}
+.pagination button {
+  padding: 8px 14px;
+  margin: 0 6px;
+  border: none;
+  border-radius: 6px;
+  background-color: #eee;
+  font-weight: 600;
+  color: #555;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.pagination button:hover {
+  background-color: #b3e0ec;
+  color: #007a8a;
+}
+.pagination button.active {
+  background-color: #0097b2;
+  color: white;
+}

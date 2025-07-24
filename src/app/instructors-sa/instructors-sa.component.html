@@ -1,0 +1,54 @@
+<div class="main-container">
+  <!-- Sidebar -->
+      <app-sidebar></app-sidebar>
+
+
+  <!-- Main Content -->
+  <section class="content">
+    <div class="p-6">
+      <!-- Header -->
+      <div class="header-bar">
+        <h2 class="page-title">Liste des Instructeurs</h2>
+        <input type="text" class="search-input" placeholder="🔍 Recherche" />
+      </div>
+
+      <!-- Table -->
+      <table class="instructor-table">
+        <thead>
+          <tr>
+            <th><input type="checkbox" /></th>
+            <th>Instructeurs</th>
+            <th>Modules</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input type="checkbox" /></td>
+            <td>John Doe</td>
+            <td>
+              <span class="chip" style="background-color:#f0c419; color:#000;">Module A</span>
+              <span class="chip" style="background-color:#4cafef; color:#fff;">Module B</span>
+            </td>
+            <td><button class="affect-button">Affecter</button></td>
+          </tr>
+          <tr class="selected-row">
+            <td><input type="checkbox" checked /></td>
+            <td>Jane Smith</td>
+            <td>
+              <span class="chip" style="background-color:#ff6f61; color:#fff;">Module C</span>
+            </td>
+            <td><button class="affect-button">Affecter</button></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Pagination -->
+      <div class="pagination">
+        <button class="active">1</button>
+        <button>2</button>
+        <button>3</button>
+      </div>
+    </div>
+  </section>
+</div>

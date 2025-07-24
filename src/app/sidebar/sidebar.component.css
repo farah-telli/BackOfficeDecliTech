@@ -12,12 +12,14 @@
   color: white;
   padding: 20px;
   height: 100vh;
-
 }
+
 .logo-img {
   width: 100%;
   margin-bottom: 30px;
 }
+
+/* Menu Links */
 .menu a {
   display: block;
   padding: 12px;
@@ -26,15 +28,18 @@
   text-decoration: none;
   color: white;
   font-weight: 500;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+/* Hover effect */
+.menu a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+/* Active state (for current route) */
 .menu a.active {
   background-color: white;
   color: #0097b2;
+  font-weight: 600;
 }
-
-
-
-
-
-
-

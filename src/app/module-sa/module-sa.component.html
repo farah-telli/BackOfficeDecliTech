@@ -1,0 +1,60 @@
+<div class="main-container">
+  <!-- Sidebar -->
+     <app-sidebar></app-sidebar>
+
+  <!-- Main Content -->
+  <section class="content">
+    <h2 class="section-title title-blue">Modules</h2>
+
+    <!-- Search -->
+    <div class="search-bar">
+      <input type="text" class="search-input" placeholder="🔍 Rechercher une session..." />
+    </div>
+
+    <!-- Table -->
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th><input type="checkbox" /></th>
+            <th>Module</th>
+            <th>Instructeur(s)</th>
+            <th>CoBuild Space</th>
+            <th>Tranche</th>
+            <th>Jour</th>
+            <th>Heure</th>
+            <th>Activation</th>
+            <th>Annulation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input type="checkbox" /></td>
+            <td>Exemple Module</td>
+            <td>John Doe</td>
+            <td>Room A</td>
+            <td><span class="badge tranche-1316">13-16</span></td>
+            <td>Lundi</td>
+            <td>10h-12h</td>
+            <!-- Activation -->
+            <td class="centered-cell">
+              <label class="custom-switch">
+                <input type="checkbox" checked />
+                <span class="slider"></span>
+              </label>
+              <div class="label">Activé</div>
+            </td>
+            <!-- Annulation -->
+            <td class="centered-cell">
+              <label class="custom-switch cancel">
+                <input type="checkbox" />
+                <span class="slider red"></span>
+              </label>
+              <div class="label">Annuler</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
