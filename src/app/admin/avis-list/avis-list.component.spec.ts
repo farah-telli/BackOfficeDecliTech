@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AvisListComponent } from './avis-list.component';
+import { AvisAdminComponent } from './avis-list.component';
 
 describe('AvisListComponent', () => {
-  let component: AvisListComponent;
-  let fixture: ComponentFixture<AvisListComponent>;
+  let component: AvisAdminComponent;
+  let fixture: ComponentFixture<AvisAdminComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AvisListComponent]
+      imports: [AvisAdminComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AvisListComponent);
+    fixture = TestBed.createComponent(AvisAdminComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

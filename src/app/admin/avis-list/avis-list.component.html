@@ -1,1 +1,85 @@
-<p>avis-list works!</p>
+<div class="main-container">
+  <aside class="sidebar">
+    <div class="logo-container">
+      <img src="img/logoo.png" alt="Logo DecliTech" class="logo-img" />
+    </div>
+    <nav class="menu">
+      <a routerLink="/accueil">🏠 Accueil</a>
+      <a routerLink="/admin">📦 Modules</a>
+      <a routerLink="/reservations">📅 Réservations</a>
+      <a routerLink="/list">👨‍🏫 Instructeurs</a>
+      <a routerLink="/avis" class="active">💬 Avis</a>
+      <a (click)="logout()">🔒 Déconnecter</a>
+    </nav>
+  </aside>
+
+  <section class="content">
+    <div class="p-6">
+      <div class="header-bar">
+        <h2 class="page-title">Liste des Avis</h2>
+        <input
+          type="text"
+          class="search-input"
+          placeholder="🔍 Recherche"
+          [(ngModel)]="searchText"
+        />
+      </div>
+
+     <table mat-table [dataSource]="filteredAvis()" class="instructor-table mat-elevation-z8">
+  <!-- Parent -->
+  <ng-container matColumnDef="parentName">
+    <th mat-header-cell *matHeaderCellDef> Utilisateur </th>
+    <td mat-cell *matCellDef="let avis"> {{ avis.parentName }} </td>
+  </ng-container>
+
+  <!-- Contenu -->
+  <ng-container matColumnDef="content">
+    <th mat-header-cell *matHeaderCellDef> Avis </th>
+    <td mat-cell *matCellDef="let avis"> {{ avis.content }} </td>
+  </ng-container>
+
+  <!-- Note -->
+  <ng-container matColumnDef="rating">
+    <th mat-header-cell *matHeaderCellDef> Note </th>
+    <td mat-cell *matCellDef="let avis">
+      <div class="star-rating">
+        <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+          <span [class.filled]="star <= avis.rating">★</span>
+        </ng-container>
+      </div>
+    </td>
+  </ng-container>
+
+  <!-- Date -->
+  <ng-container matColumnDef="submittedAt">
+    <th mat-header-cell *matHeaderCellDef> Date </th>
+    <td mat-cell *matCellDef="let avis"> {{ avis.submittedAt | date:'dd/MM/yyyy' }} </td>
+  </ng-container>
+
+  <!-- Action -->
+  <ng-container matColumnDef="action">
+    <th mat-header-cell *matHeaderCellDef> Action </th>
+    <td mat-cell *matCellDef="let avis">
+      <button class="affect-button" (click)="supprimerAvis(avis)">Supprimer</button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<div class="pagination">
+  <button
+    *ngFor="let page of [].constructor(totalPages); let i = index"
+    (click)="changePage(i + 1)"
+    [class.active]="currentPage === i + 1"
+  >
+    {{ i + 1 }}
+  </button>
+</div>
+
+
+  
+    </div>
+  </section>
+</div>

@@ -1,12 +1,21 @@
 <div class="main-container">
-  <!-- Sidebar -->
-  <app-sidebar (logoutEvent)="logout()"></app-sidebar>
-
-  <!-- Contenu principal -->
+  <aside class="sidebar">
+    <div class="logo-container">
+      <img src="img/logoo.png" alt="Logo DecliTech" class="logo-img" />
+    </div>
+    <nav class="menu">
+      <a routerLink="/accueil">🏠 Accueil</a>
+      <a routerLink="/admin" class="active">📦 Modules</a>
+      <a routerLink="/reservations">📅 Réservations</a>
+      <a routerLink="/list">👨‍🏫 Instructeurs</a>
+      <a routerLink="/avis">💬 Avis</a>
+      <a (click)="logout()">🔒 Déconnecter</a>
+    </nav>
+  </aside>
+  
   <section class="content">
     <h2 class="text-xl font-semibold mb-4 title-blue">Modules</h2>
 
-    <!-- Barre de recherche -->
     <div class="search-bar">
       <input
         type="text"
@@ -16,7 +25,6 @@
       />
     </div>
 
-    <!-- Tableau -->
     <div class="table-wrapper">
       <table>
         <thead>
@@ -28,12 +36,13 @@
             <th>Tranche</th>
             <th>Jour</th>
             <th>Heure</th>
+            <th>Nbre de réservations</th>
             <th>Activation</th>
             <th>Annulation</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let session of modules">
+          <tr *ngFor="let session of modules | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
             <td><input type="checkbox" [(ngModel)]="session.checked" /></td>
             <td>{{ session.moduleTitle }}</td>
             <td>{{ getInstructorsList(session.instructeurs) }}</td>
@@ -46,8 +55,7 @@
             </td>
             <td>{{ session.jour }}</td>
             <td>{{ session.heure }}</td>
-
-            <!-- Activation -->
+            <td class="centered-cell">{{ session.enrolledCount }}</td>
             <td class="centered-cell">
               <label class="custom-switch">
                 <input
@@ -59,8 +67,6 @@
               </label>
               <div class="label">{{ session.actif ? 'Activé' : 'Désactivé' }}</div>
             </td>
-
-            <!-- Annulation -->
             <td class="centered-cell">
               <label class="custom-switch cancel">
                 <input
@@ -75,6 +81,8 @@
           </tr>
         </tbody>
       </table>
+      
+      <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
     </div>
   </section>
 </div>

@@ -5,6 +5,8 @@ import { VerifCompteComponent } from './auth/verif-compte/verif-compte.component
 import { RenetialiserCodeComponent } from './auth/renetialiser-code/renetialiser-code.component';
 import { AuthGuard } from './guards/auth.guard';
 import { ModuleAdminComponent } from './admin/module-admin/module-admin.component';
+import { ReservationListComponent } from './admin/reservation-list/reservation-list.component';
+import { AvisAdminComponent } from './admin/avis-list/avis-list.component';
 
 export const routes: Routes = [
 
@@ -14,7 +16,9 @@ export const routes: Routes = [
   { path: 'reset', component: ResetCodeComponent },
   { path: 'verif', component: VerifCompteComponent },
   { path: 'renetialiser', component: RenetialiserCodeComponent },
-    { path: 'admin', component: ModuleAdminComponent,canActivate: [AuthGuard] },
+  { path: 'admin', component: ModuleAdminComponent,canActivate: [AuthGuard] },
+  { path: 'reservations', component: ReservationListComponent,canActivate: [AuthGuard] },
+{ path: 'avis', component: AvisAdminComponent, canActivate: [AuthGuard] },
 
 { 
   path: 'list', 

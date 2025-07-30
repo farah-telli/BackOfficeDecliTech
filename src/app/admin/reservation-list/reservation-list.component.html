@@ -1,1 +1,59 @@
-<p>reservation-list works!</p>
+<div class="page-container">
+  <div class="sidebar">
+    <div class="logo-container">
+      <img src="img/logoo.png" alt="Logo DecliTech" class="logo-img" />
+    </div>
+    <nav class="menu">
+      <a routerLink="/accueil" routerLinkActive="active">🏠 Accueil</a>
+      <a routerLink="/admin" routerLinkActive="active">📦 Modules</a>
+      <a routerLink="/reservations" routerLinkActive="active">📅 Réservations</a>
+      <a routerLink="/list" routerLinkActive="active">👨‍🏫 Instructeurs</a>
+      <a routerLink="/avis" routerLinkActive="active">💬 Avis</a>
+      <a (click)="logout()">🔒 Déconnecter</a>
+    </nav>
+  </div>
+
+  <div class="main-content">
+    <h2>Liste des Réservations</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th><input type="checkbox" /></th>
+          <th>Enfant</th>
+          <th>Module</th>
+          <th>Cobuild Space</th>
+          <th>Tranche</th>
+          <th>Date & Heure</th>
+          <th>Statut</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let r of reservations">
+          <td><input type="checkbox" /></td>
+          <td>{{ r.childName }}</td>
+          <td>{{ r.moduleName }}</td>
+          <td>{{ r.cobuildSpaceName }}</td>
+          <td>
+            <span class="badge" [ngClass]="{
+              'tranche-1316': r.sessionTime?.includes('13'),
+              'tranche-0812': r.sessionTime?.includes('08') || r.sessionTime?.includes('09')
+            }">
+              {{ getTrancheFromTime(r.sessionTime) }}
+            </span>
+          </td>
+          <td>
+            <button class="jour">{{ r.sessionDate | date:'dd/MM/yyyy' }}</button>
+            <button class="heure">{{ r.sessionTime }}</button>
+          </td>
+          <td>
+            <span [ngClass]="{
+              'status-canceled': r.status === 'CANCELED',
+              'status-confirmed': r.status === 'CONFIRMED'
+            }">{{ r.status }}</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 // Angular Material
@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatChipsModule } from '@angular/material/chips';
 import { AffecterDialogComponent } from '../../affecter-dialog/affecter-dialog.component';
 import { UserService } from '../../../services/UserService';
+import { AuthService } from '../../../services/AuthService';
 
 @Component({
   selector: 'app-liste-instructeurs',
@@ -29,17 +30,18 @@ import { UserService } from '../../../services/UserService';
     MatChipsModule
   ]
 })
-export class ListeInstructeursComponent {
+export class ListeInstructeursComponent implements OnInit{
+
   searchText: string = '';
   currentPage = 1;
   itemsPerPage = 8;
+  instructors: any[] = [];
 
   displayedColumns: string[] = ['select', 'name', 'modules', 'action'];
 
   matiereStyles: { [key: string]: { bg: string; text: string } } = {
     'Création de Sites Web': { bg: '#FFB7B0', text: '#750000' },
     'Code Combat': { bg: '#F9C4FF', text: '#731D7D' },
-    'DJV': { bg: '#8F5300', text: '#FFD198' },
     'Design Graphique': { bg: '#59D7DE', text: '#005F70' },
     'Robotique Intelligente': { bg: '#C9E8CD', text: '#0C4D14' },
     'Architecture et Ingénierie 3D': { bg: '#FBE28F', text: '#5E4903' },
@@ -49,7 +51,7 @@ export class ListeInstructeursComponent {
     'Conception Robotique': { bg: '#005F70', text: '#59D7DE' },
     'Dév Apps': { bg: '#FFCB82', text: '#675030' },
     'Algorithmique': { bg: '#9E38A0', text: '#FFFFFF' },
-    'anglais': { bg: '#DA0004', text: '#FFFFFF' },
+    'Anglais': { bg: '#DA0004', text: '#FFFFFF' },
     'Soft Skills': { bg: '#DF00AF', text: '#FFFFFF' },
     'Microsoft Microbit': { bg: '#7ABAE2', text: '#000B46' },
     'Internet of Things': { bg: '#FFE852', text: '#844D00' },
@@ -58,129 +60,73 @@ export class ListeInstructeursComponent {
     'Entrepreneuriat': { bg: '#BFFF71', text: '#03542D' }
   };
 
-  instructors = [
-    {
-      name: 'Farah Telli',
-      selected: false,
-      modules: [
-        { name: 'Création de Sites Web, Manouba, Mercredi' },
-        { name: 'Code Combat, Lac, Vendredi' }
-      ]
-    },
-    {
-      name: 'Omar Gharbi',
-      selected: false,
-      modules: [
-        { name: 'Design Graphique, CUN, Jeudi' },
-        { name: 'DJV, Ariana, Mercredi' }
-      ]
-    },
-    {
-      name: 'Karim Trabelsi',
-      selected: false,
-      modules: [
-        { name: 'Robotique Intelligente, Lac, Samedi' },
-        { name: 'Architecture et Ingénierie 3D, Manouba, Dimanche' }
-      ]
-    },
-       {
-      name: 'Hend Trabelsi',
-      selected: false,
-      modules: [
-        { name: ' DJV, Lac, Samedi' },
-        { name: 'Architecture et Ingénierie 3D, Manouba, Dimanche' }
-      ]
-    },
-       {
-      name: 'Rihem Ouesleti',
-      selected: false,
-      modules: [
-        { name: 'Conception Robotique , Lac, Samedi' },
-        { name: 'Anglais, Manouba, Dimanche' }
-      ]
-    },
-       {
-      name: 'Hadil laabidi',
-      selected: false,
-      modules: [
-        { name: 'Robotique Intelligente, Lac, Samedi' },
-        { name: 'Algorithmique, Manouba, Dimanche' }
-      ]
-    },
-    {
-      name: 'Lina Mahfoudh',
-      selected: false,
-      modules: [
-        { name: 'Coding & IA Générative, Ariana, Jeudi' },
-        { name: 'Intelligence Artificielle, Lac, Vendredi' }
-      ]
-    },
-      {
-      name: 'Omar Gharbi',
-      selected: false,
-      modules: [
-        { name: 'Design Graphique, CUN, Jeudi' },
-        { name: 'DJV, Ariana, Mercredi' }
-      ]
-    },
-      {
-      name: 'Hadyl laabidi',
-      selected: false,
-      modules: [
-        { name: 'Design Graphique, CUN, Jeudi' },
-        { name: 'DJV, Ariana, Mercredi' }
-      ]
-    }
-  ];
-
-constructor(private dialog: MatDialog, private userService: UserService) {}
+  constructor(private dialog: MatDialog, private userService: UserService,
+        private router: Router,
+            private authService: AuthService,
 
 
+  ) {}
 
-  get totalPages() {
+  ngOnInit(): void {
+    this.loadInstructors();
+  }
+
+  loadInstructors(): void {
+    this.userService.getAllInstructors().subscribe({
+      next: (data) => {
+        this.instructors = data.map((instructor: any) => ({
+          id: instructor.id,
+          name: `${instructor.firstName} ${instructor.lastName}`,
+          selected: false,
+          modules: instructor.modules.map((mod: string) => ({
+            name: mod
+          }))
+        }));
+      },
+      error: (err) => {
+        console.error('Erreur lors du chargement des instructeurs', err);
+      }
+    });
+  }
+
+  get totalPages(): number {
     return Math.ceil(this.filteredInstructorsList().length / this.itemsPerPage);
   }
 
-  filteredInstructorsList() {
+  filteredInstructorsList(): any[] {
     return this.instructors.filter((inst) =>
       inst.name.toLowerCase().includes(this.searchText.toLowerCase())
     );
   }
 
-  filteredInstructors() {
+  filteredInstructors(): any[] {
     const start = (this.currentPage - 1) * this.itemsPerPage;
     return this.filteredInstructorsList().slice(start, start + this.itemsPerPage);
   }
 
-  changePage(page: number) {
+  changePage(page: number): void {
     this.currentPage = page;
   }
 
-  toggleAll(event: any) {
+  toggleAll(event: any): void {
     const checked = event.target.checked;
     this.filteredInstructors().forEach((inst) => (inst.selected = checked));
   }
 
-affecter(row: any) {
-  const dialogRef = this.dialog.open(AffecterDialogComponent, {
-    width: '640px',
-    height: '535px',
-    panelClass: 'custom-dialog',
-    data: row
-  });
+  affecter(row: any): void {
+    const dialogRef = this.dialog.open(AffecterDialogComponent, {
+      width: '640px',
+      height: '535px',
+      panelClass: 'custom-dialog',
+      data: row  // <-- passe l'instructeur sélectionné ici
+    });
 
-  dialogRef.afterClosed().subscribe(result => {
-    if (result) {
-      console.log('Affectation confirmée :', result);
-    }
-  });
-}
-
-
-
-
-  logout() {
-    // Action déconnexion
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loadInstructors();  // Recharge la liste après affectation
+        console.log('Affectation confirmée :', result);
+      }
+    });
   }
 
   getStyleForModule(moduleName: string): { bg: string; text: string } {
@@ -190,5 +136,11 @@ affecter(row: any) {
       }
     }
     return { bg: '#ccc', text: '#000' };
+  }
+
+    logout() {
+    this.authService.logout();
+    alert('Déconnexion réussie');
+    this.router.navigate(['/login']);
   }
 }

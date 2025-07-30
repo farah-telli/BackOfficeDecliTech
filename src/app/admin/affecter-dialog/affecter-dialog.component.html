@@ -1,63 +1,80 @@
 <div class="dialog-container">
-  <div class="steps">
-    <div [class.active]="currentStep === 1">
-      <div class="step-title">Module</div>
-      <div class="step-subtitle">{{ selectedModuleName }}</div>
-    </div>
-    <div [class.active]="currentStep === 2">
-      <div class="step-title">Cobuild Space</div>
-      <div class="step-subtitle">{{ selectedSpaceName }}</div>
-    </div>
-    <div [class.active]="currentStep === 3">
-      <div class="step-title">Jour</div>
-      <div class="step-subtitle">{{ selectedDayLabel }}</div>
-    </div>
-  </div>
+  <button mat-button (click)="isLinear = !isLinear" id="toggle-linear" style="margin-bottom: 16px;">
+    {{ !isLinear ? 'Enable linear mode' : 'Disable linear mode' }}
+  </button>
 
-  <div class="content">
-    <!-- Étape 1 -->
-    <div *ngIf="currentStep === 1" class="chips-container">
-      <span
-        *ngFor="let mod of modules"
-        (click)="selectModule(mod.id)"
-        [class.selected]="selectedModuleId === mod.id"
-        class="chip"
-      >
-        {{ mod.name }}
-      </span>
-    </div>
+  <mat-horizontal-stepper [linear]="isLinear" #stepper>
+    <!-- Étape 1 : Choix du module -->
+    <mat-step [stepControl]="firstFormGroup" label="Module">
+      <form [formGroup]="firstFormGroup">
+        <div class="chips-container">
+          <span
+            *ngFor="let mod of modules"
+            (click)="selectModule(mod.id)"
+            [class.selected]="selectedModuleId === mod.id"
+            class="chip"
+            [class.mat-elevation-z4]="selectedModuleId === mod.id"
+            style="cursor: pointer; padding: 8px; margin: 4px; border-radius: 16px; background-color: #e0e0e0;"
+          >
+            {{ mod.title }}
+          </span>
+        </div>
 
-    <!-- Étape 2 -->
-    <div *ngIf="currentStep === 2" class="chips-container">
-      <span
-        *ngFor="let s of spaces"
-        (click)="selectSpace(s.id)"
-        [class.selected]="selectedSpaceId === s.id"
-        class="chip"
-      >
-        {{ s.name }}
-      </span>
-    </div>
+        <div style="margin-top: 24px;">
+          <button mat-button matStepperNext [disabled]="!firstFormGroup.valid">Suivant →</button>
+        </div>
+      </form>
+    </mat-step>
 
-    <!-- Étape 3 -->
-    <div *ngIf="currentStep === 3" class="chips-container">
-      <span
-        *ngFor="let d of days"
-        (click)="selectDay(d)"
-        [class.selected]="selectedDay === d"
-        class="chip"
-      >
-        {{ d }}
-      </span>
-    </div>
+    <!-- Étape 2 : Choix du Cobuild Space -->
+    <mat-step [stepControl]="secondFormGroup" label="Cobuild Space">
+      <form [formGroup]="secondFormGroup">
+        <div class="chips-container">
+          <span
+            *ngFor="let s of spaces"
+            (click)="selectSpace(s.spaceId)"
+            [class.selected]="selectedSpaceId === s.spaceId"
+            class="chip"
+            [class.mat-elevation-z4]="selectedSpaceId === s.spaceId"
+            style="cursor: pointer; padding: 8px; margin: 4px; border-radius: 16px; background-color: #e0e0e0;"
+          >
+            {{ s.name }}
+          </span>
+        </div>
 
-    <div class="actions">
-      <button mat-button (click)="previous()" [disabled]="currentStep === 1">
-        <span>←</span><span>Précédent</span>
-      </button>
-      <button mat-button color="primary" (click)="next()">
-        <span>{{ currentStep === 3 ? 'Affecter' : 'Suivant' }}</span><span>→</span>
-      </button>
-    </div>
-  </div>
+        <div style="margin-top: 24px;">
+          <button mat-button matStepperPrevious>← Précédent</button>
+          <button mat-button matStepperNext [disabled]="!secondFormGroup.valid">Suivant →</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <!-- Étape 3 : Choix du jour -->
+    <mat-step label="Jour">
+      <div class="chips-container">
+        <span
+          *ngFor="let d of days"
+          (click)="selectDay(d)"
+          [class.selected]="selectedDay === d"
+          class="chip"
+          [class.mat-elevation-z4]="selectedDay === d"
+          style="cursor: pointer; padding: 8px; margin: 4px; border-radius: 16px; background-color: #e0e0e0;"
+        >
+          {{ d }}
+        </span>
+      </div>
+
+      <div style="margin-top: 24px;">
+        <button mat-button matStepperPrevious>← Précédent</button>
+        <button
+          mat-button
+          color="primary"
+          (click)="assignModule()"
+          [disabled]="!selectedDay"
+        >
+          Affecter
+        </button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
 </div>

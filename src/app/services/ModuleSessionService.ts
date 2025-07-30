@@ -17,5 +17,19 @@ getAllSessions(): Observable<ModuleSession[]> {
   return this.http.get<ModuleSession[]>(`${this.baseUrl}/response`);
 }
 
+  activerSession(id: number): Observable<ModuleSession> {
+    const url = `${this.baseUrl}/${id}/activate`;
+    return this.http.patch<ModuleSession>(url, {}); // Le corps peut rester vide
+  }
 
+    desactiverSession(id: number): Observable<ModuleSession> {
+    const url = `${this.baseUrl}/${id}/deactivate`;
+    return this.http.patch<ModuleSession>(url, {});
+  }
+
+  // Méthode pour annuler une séance
+  annulerSeance(id: number, isAnnule: boolean): Observable<ModuleSession> {
+    const url = `${this.baseUrl}/${id}/cancel`;
+    return this.http.patch<ModuleSession>(url, { isAnnule });
+  }
 }

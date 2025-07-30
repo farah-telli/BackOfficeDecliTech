@@ -9,10 +9,14 @@ export interface CoBuildSpace {
   name: string;
 }
 
+// src/app/models/user.model.ts
 export interface User {
   id: number;
   firstName: string;
   lastName: string;
-  module: Module[];
-  coBuildSpace: CoBuildSpace;
+  email: string;
+  phone: string;
+  role: string;
+  enabled: boolean;
+  fullName: string;
 }

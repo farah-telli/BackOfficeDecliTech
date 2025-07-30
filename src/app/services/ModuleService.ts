@@ -45,27 +45,22 @@ export class ModuleService {
     private baseUrl = 'http://localhost:8089/declitech/api/modules';
 
 
-  activerModule(id: number): Observable<void> {
-    return this.http.patch<void>(`${this.baseUrl}/${id}/activate`, {});
-  }
+//   activerModule(id: number): Observable<void> {
+//     return this.http.patch<void>(`${this.baseUrl}/${id}/activate`, {});
+//   }
 
-  desactiverModule(id: number): Observable<void> {
-    return this.http.patch<void>(`${this.baseUrl}/${id}/deactivate`, {});
-  }
+//   desactiverModule(id: number): Observable<void> {
+//     return this.http.patch<void>(`${this.baseUrl}/${id}/deactivate`, {});
+//   }
 
-  annulerModule(id: number): Observable<void> {
-  return this.http.patch<void>(`${this.baseUrl}/${id}/cancel`, {});
+//   annulerModule(id: number): Observable<void> {
+//   return this.http.patch<void>(`${this.baseUrl}/${id}/cancel`, {});
+// }
+
+assignModule(payload: any): Observable<any> {
+  return this.http.post(`${this.baseUrl}/assign-full`, payload);
 }
-assignModule(payload: {
-  instructorId: number;
-  moduleId: number;
-  coBuildSpaceId: number;
-  jour: string;
-}): Observable<string> {
-  return this.http.post(`${this.baseUrl}/assign-full`, payload, {
-    responseType: 'text' as const
-  });
-}
+
 
 
 }
