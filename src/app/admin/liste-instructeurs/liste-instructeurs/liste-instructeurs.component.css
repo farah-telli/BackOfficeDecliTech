@@ -1,3 +1,123 @@
+.main-container {
+  display: flex;
+  height: 100vh;
+  font-family: "Segoe UI", sans-serif;
+  background: #f9fbfd;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 200px;
+  background-color: #0097b2;
+  color: white;
+  padding: 20px;
+}
+.logo-img {
+  width: 100%;
+  margin-bottom: 30px;
+}
+.menu a {
+  display: block;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+}
+.menu a.active {
+  background-color: white;
+  color: #0097b2;
+}
+
+.content {
+  flex-grow: 1;
+  background: #f9f9f9;
+  padding: 30px;
+}
+
+.header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.page-title {
+  color: #0097b2;
+  font-size: 24px;
+}
+
+.search-input {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  width: 230px;
+}
+
+.instructor-table {
+  width: 100%;
+  background-color: white;
+  border-collapse: collapse;
+}
+
+.instructor-table th,
+.instructor-table td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+.chip {
+  border-radius: 20px;
+  padding: 5px 10px;
+  margin: 3px;
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+
+.affect-button {
+  background-color: #00b2c5;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 5px 15px;
+  cursor: pointer;
+}
+
+
+.mat-dialog-content {
+  font-size: 16px;
+}
+.mat-dialog-actions {
+  margin-top: 20px;
+}
+
+
+
+.selected-row {
+  background-color: #e6f0ff !important;
+}
+
+.pagination {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.pagination button {
+  padding: 6px 12px;
+  margin: 0 4px;
+  border: none;
+  border-radius: 4px;
+  background-color: #eee;
+  cursor: pointer;
+}
+
+.pagination button.active {
+  background-color: #0097b2;
+  color: white;
+}
 .page-container {
   display: flex;
   font-family: 'Segoe UI', sans-serif;
