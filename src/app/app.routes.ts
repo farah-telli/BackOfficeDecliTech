@@ -7,6 +7,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { ModuleAdminComponent } from './admin/module-admin/module-admin.component';
 import { ReservationListComponent } from './admin/reservation-list/reservation-list.component';
 import { AvisAdminComponent } from './admin/avis-list/avis-list.component';
+import { DashboardInstructeurComponent } from './dashboard-instructeur/dashboard-instructeur.component';
 
 export const routes: Routes = [
 
@@ -18,7 +19,8 @@ export const routes: Routes = [
   { path: 'renetialiser', component: RenetialiserCodeComponent },
   { path: 'admin', component: ModuleAdminComponent,canActivate: [AuthGuard] },
   { path: 'reservations', component: ReservationListComponent,canActivate: [AuthGuard] },
-{ path: 'avis', component: AvisAdminComponent, canActivate: [AuthGuard] },
+  { path: 'avis', component: AvisAdminComponent, canActivate: [AuthGuard] },
+  { path: 'dashboard-instructeur', component: DashboardInstructeurComponent, canActivate: [AuthGuard]},
 
 { 
   path: 'list', 

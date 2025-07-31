@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./dashboard-instructeur.component.css" />
+    <title>Liste des enfant</title>
+  </head>
+  <body>
+    <div class="container">
+      <aside class="sidebar">
+        <div class="logo">DecliTech</div>
+        <nav class="nav">
+          <a href="#" class="nav-item active"> <i class="icon">🏠</i> Accueil </a>
+          <a href="#" class="nav-item"> <i class="icon">📚</i> Modules </a>
+          <a href="#" class="nav-item"> <i class="icon">🚪</i> Déconnecter </a>
+        </nav>
+      </aside>
+
+      <main class="main-content">
+       <div class="header-bar">
+        <h1 class="title">Liste des Enfants</h1>
+<input
+  type="text"
+  class="search-input"
+  placeholder="Rechercher par nom, espace ou titre..."
+  [(ngModel)]="searchText"
+/>
+  
+</div>
+<div class="filter-container">
+  <button class="filter active">
+     Tous
+  </button>
+  <button class="filter">
+  Lac S211
+  </button>
+  <button class="filter">
+    Boumhel B S1
+  </button>
+  <button class="filter">
+    El Mourouj S2 - M
+  </button>
+  <button class="filter">
+    Ariana S1 - J
+  </button>
+  <button class="filter">
+     La Manouba S1
+  </button>
+  <button class="filter">
+    
+    <span class="text-truncate"> La Manouba S1</span>
+  </button>
+  <!--<button class="filter active arrow">
+    ➡️
+  </button>-->
+</div>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th class="truncate">CoBuild Space</th>
+                <th>Sexe</th>
+                <th>Enfants</th>
+                <th>Titre</th>
+                
+                <th class="truncate">Code Classe</th>
+                <th>Pseudonyme</th>
+                <th>MDP</th>
+                <th>Projets </th>
+                <th class="truncate"> Info supplémentaires</th>
+                <th class="truncate">Date dernière séance</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let res of filteredenfants">
+
+                <td>{{ res.space }}</td>
+                 <td><span class="badge" [ngClass]="res.sexe === 'Féminin' ? 'pink' : 'blue'">
+              {{ res.sexe }}
+            </span></td>
+                <td>{{ res.enfant }}</td>
+                <td>
+            <span class="badge" [ngClass]="res.titre === 'explorateur' ? 'pink' : 'blue'">
+              {{ res.titre }}
+            </span>
+          </td>
+                
+                <td>{{ res.codeclasse }}</td>
+                <td>{{ res.Pseudonyme }}</td>
+               
+                <td>
+                 {{ res.MDP }}
+                <td>
+  <!-- Projets sélectionnés sous forme de tags -->
+  <div class="projets-tags">
+    <span class="projet-tag" *ngFor="let proj of res.projets">
+      {{ proj }}
+    </span>
+  </div>
+
+  <!-- Zone cliquable pour afficher la liste -->
+  <div class="dropdown" (click)="res.showDropdown = !res.showDropdown">
+   <div class="dropdown-placeholder">
+      .
+    </div>
+
+    <ul class="dropdown-list" *ngIf="res.showDropdown">
+      <li *ngFor="let projet of projetsList" (click)="addProjet(res, projet)">
+        {{ projet }}
+      </li>
+    </ul>
+  </div>
+</td>
+ <td>
+    <textarea
+      [(ngModel)]="res.informations"
+      rows="3"
+      placeholder="Ajouter une remarque..."
+      class="info-textarea"
+    ></textarea>
+  </td>
+<td>
+  <input type="date" [(ngModel)]="res.dateDerniereSeance" class="date-input" />
+</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
